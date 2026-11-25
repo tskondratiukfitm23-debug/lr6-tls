@@ -1,0 +1,11 @@
+# secrets & generated material — never commit
+certs/
+*.key
+users.json
+users.json.tmp
+logs/
+uploads/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
