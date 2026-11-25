@@ -21,6 +21,7 @@ TLS_REASON_HINTS = {
     "CERTIFICATE_VERIFY_FAILED": "сертифікат клієнта не пройшов перевірку (чужий CA) — mTLS",
     "PEER_DID_NOT_RETURN_A_CERTIFICATE": "клієнт не надав сертифікат при увімкненому mTLS",
     "WRONG_VERSION_NUMBER": "спроба розмовляти без TLS (відкритий текст) або сканер портів",
+    "RECORD_LAYER_FAILURE": "некоректний TLS-запис: відкритий текст замість TLS (OpenSSL 3.5+) або сканер портів",
     "HTTP_REQUEST": "HTTP без TLS на TLS-порт",
     "UNSUPPORTED_PROTOCOL": "застаріла версія протоколу (TLS 1.0/1.1)",
     "NO_SHARED_CIPHER": "немає спільних наборів шифрів (слабкий клієнт)",
