@@ -143,6 +143,8 @@ class SecureClient:
         return r
 
     def build(self, op: str, **fields) -> Dict[str, Any]:
+        if self.key is None:
+            raise RuntimeError("сесію не автентифіковано (AUTH не вдався) — немає сесійного HMAC-ключа")
         self.seq += 1
         return P.sign({"op": op, "token": self.token, "seq": self.seq, **fields}, self.key)
 

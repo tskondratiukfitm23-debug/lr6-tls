@@ -52,6 +52,15 @@ def main() -> int:
 
     print(f"\n=== Сценарії ЛР6 → {a.host}:{a.port} {'(mTLS)' if a.mtls else ''} ===")
 
+    # pre-check both passwords so a typo gives a clear message instead of a traceback
+    for user, pwd in (("alice", alice_pw), ("admin", admin_pw)):
+        cl, r = session(user, pwd)
+        cl.close()
+        if not r.get("ok"):
+            print(f"  ✘ Вхід '{user}' не вдався (код {r.get('code')}, {r.get('status')}). "
+                  f"Перевірте пароль і запустіть скрипт ще раз.")
+            return 2
+
     # 1. normal echo
     cl, r = session("alice", alice_pw)
     print(f"  TLS: {cl.tls['protocol']} / {cl.tls['cipher']} / {cl.tls['subject']}")
