@@ -155,7 +155,10 @@ def test_plaintext_connection_rejected(server):
     s.sendall(b'{"op":"auth","username":"alice","password":"x"}\n')
     assert s.recv(100) == b""
     s.close()
-    assert any(e.get("reason") == "WRONG_VERSION_NUMBER" for e in events(server[1]))
+    # OpenSSL 3.0-3.4 reports WRONG_VERSION_NUMBER, OpenSSL 3.5+ reports RECORD_LAYER_FAILURE
+    plaintext_reasons = {"WRONG_VERSION_NUMBER", "RECORD_LAYER_FAILURE"}
+    assert any(e.get("event") == "tls.handshake_fail" and e.get("reason") in plaintext_reasons
+               for e in events(server[1]))
 
 
 # ---------------------------------------------------------------- auth / access control
